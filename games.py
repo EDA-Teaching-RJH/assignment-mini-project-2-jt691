@@ -1,13 +1,6 @@
 import sys                                                  #allows python to read the arguments #python3 games.py jack (line to input into the terminal)
 import random                                               #allows for rock paper scissors and coin flip to be random and blackjack
 
-if len(sys.argv) < 2:
-    print("Please enter your first name ")
-elif len (sys.argv) > 2:
-    print("please enter ONLY your first name ")               #using argument to ask username 
-else:
-    print("Welcome", sys.argv[1])
-
 def minigames():                                                 #list of games and options to pick from 
     print("Select a game you wish to play:")                   
     print("1. Head or Tails")
@@ -16,8 +9,16 @@ def minigames():                                                 #list of games 
     print("4. Score")
     print("5. Exit")
                         
-def main():                                                                # directs user input to the variable seleted calling the function to run
-    while true:
+def main():                              # Moved argument to main function to make more readable and added sys. exit() to end unless a name is given
+    if len(sys.argv) < 2:                                                 # directs user input to the variable seleted calling the function to run
+        print("Please enter your first name ")                               #using argument to ask username 
+        sys.exit()
+    if len (sys.argv) > 2:
+        print("please enter ONLY your first name ")               
+        sys.exit()
+    print("Welcome", sys.argv[1])
+    
+    while True:
         minigames()
         select = input("Enter the number for the corresponding game")
         if select == "1":
@@ -33,7 +34,7 @@ def main():                                                                # dir
             break
 
 def heads_or_tails():                                             #standard coin flip using flip to make it random
-    Coin = ["heads", "tails"]
+    coin = ["heads", "tails"]
     while True:    
         x = input("Pick heads or tails: ").lower()
         if x not in Coin:
@@ -60,6 +61,6 @@ def rock_paper_scissors():                                                     #
             else:
                 print("you lose opponent picked", opponent)
 
-               
+if __name__ == "__main__":
+    main()              
 
-main()
