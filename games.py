@@ -32,16 +32,6 @@ def main():                                                                # dir
             print("shutting down ")
             break
 
-
-
-
-
-
-
-
-
-
-
 def heads_or_tails():                                             #standard coin flip using flip to make it random
     Coin = ["heads", "tails"]
     while True:    
@@ -55,7 +45,21 @@ def heads_or_tails():                                             #standard coin
             else:
                 print("you lose, the coin landed on",flip)
 
+def rock_paper_scissors():                                                     #standard game of rock, paper, scissor
+    options = ["rock", "paper", "scissors"]
+    while True:
+        x = input("Pick rock, paper or scissors:").lower()
+        if x not in options:
+            print("please select valid option")
+        else:
+            opponent = random.choice(options)
+            if x == opponent:
+                print("tie, opponent also picked", opponent)
+            elif (x == "rock" and opponent == "scissors") or (x== "paper" and opponent == "rock") or (x == "scissors" and opponent == "paper"):
+                print("you win opponent picked" , opponent)
+            else:
+                print("you lose opponent picked", opponent)
 
-
+               
 
 main()
