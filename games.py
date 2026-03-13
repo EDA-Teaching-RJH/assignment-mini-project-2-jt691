@@ -8,3 +8,10 @@ elif len (sys.argv) > 2:
 else:
     print("Welcome", sys.argv[1])
 
+def minigames():
+    print("Select a game you wish to play:")
+    print("1. Head or Tails")
+    print("2. Rock, Paper, Scissors")
+    print("3. Blackjack")
+    print("4. Score")
+    print("5. Exit")
