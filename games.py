@@ -37,10 +37,10 @@ def heads_or_tails():                                             #standard coin
     coin = ["heads", "tails"]
     while True:    
         x = input("Pick heads or tails: ").lower()
-        if x not in Coin:
+        if x not in coin:
             print("Please selct heads or tails only")                  
         else:
-            flip = random.choice(Coin)
+            flip = random.choice(coin)
             if x == flip:
                 print("you win, the coin landed on",flip)
             else:
@@ -60,6 +60,45 @@ def rock_paper_scissors():                                                     #
                 print("you win opponent picked" , opponent)
             else:
                 print("you lose opponent picked", opponent)
+
+def blackjack():
+    cards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",  #standard deck of cards 
+             "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",
+             "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",
+             "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K","A"]
+    def hand_value(hand):
+        total = 0                                                  # created two variables, total is overlall value of hand whilst ace will be used later to change the value to 1 or 11
+        aces = 0
+        
+        for card in hand:                                          #assings J,Q,K as 10 and A as 11 but if the total goes over 21 the value of the ace will change to 1 
+            if card in ["J", "Q", "K"]:
+                total += 10
+            elif card == "A":
+                aces += 1
+                total += 11
+            else:
+                total += int(card)
+
+    while total > 21 and aces > 0:                  # whilst a ace is in hand the value of total will change from 11 to 1 to prevent the player going over 21 
+        total -= 10
+        aces -= 1    
+    return total 
+    
+    
+    player = []
+    dealer = []
+
+    player.append(random.choice(cards))              #deals two starting cards to the player and the dealer 
+    cards.remove(player[-1])
+    player.append(random.choice(cards))
+    cards.remove(player[-1])
+    
+    dealer.append(random.choice(cards))
+    cards.remove(dealer[-1])
+    dealer.append(random.choice(cards))
+    cards.remove(dealer[-1])
+
+
 
 if __name__ == "__main__":
     main()              
