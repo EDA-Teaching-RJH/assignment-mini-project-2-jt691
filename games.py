@@ -35,7 +35,22 @@ def test_hand_value():                     #testing - verify that the hand value
     assert hand_value(["A, 9"]) == 20
     assert hand_value(["A, A, 9"]) == 21
     assert hand_value(["A, A, 9, 2"]) == 12
-    print("Blackjack hand value tests passed")                  
+    print("Blackjack hand value tests passed")  
+
+
+def save_score(name,points):                 
+    with open("scores.txt", "a") as file:
+        file.write(name + ": " + str(points) + "\n")
+
+def score():                 #allows the user to save there name and ther score to a text file, whilst checking name is valid 
+    global points
+    print("Your current score is:", points)
+    name = input("enter your name to save your score:")
+    if not re.match("^[A-Za-z]+$", name):  
+        print("Invalid name. Please only use letters.")
+        return
+    save_score(name, points)     
+    print("score saved")         
     
         
                         
@@ -48,6 +63,8 @@ def main():                              # Moved argument to main function to ma
         sys.exit()
     print("Welcome", sys.argv[1])
     
+    test_hand_value()                     #testing - verify that the hand values is working correctly by asserting values of different hands    
+
     while True:
         minigames()
         select = input("Enter the number for the corresponding game")
@@ -64,11 +81,15 @@ def main():                              # Moved argument to main function to ma
             break
 
 def heads_or_tails():                                             #standard coin flip using flip to make it random
+    global points
     coin = ["heads", "tails"]
     while True:    
-        x = input("Pick heads or tails: ").lower()
-        if x not in coin:
-            print("Please selct heads or tails only")                  
+        x = input("Pick heads or tails or exit: ").lower()
+        if x == "exit":
+            break
+
+        if not re.match ("^(heads|tails)$", x):
+            print("Please select heads or tails only")                  
         else:
             flip = random.choice(coin)
             if x == flip:
