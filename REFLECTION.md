@@ -19,3 +19,8 @@ def score():                 #Regex to only allow valid names ie only letters(le
         print("Invalid name. Please only use letters.")
         return
     save_score(name, points)        
+
+if not re.match ("^(heads|tails)$", x):         #regex only allows heads or tails 
+
+if not re.match("^(hit|stand)$", choice):            # only allows hit or stand as valid inputs 
+            print("please select hit or stand only")

@@ -94,14 +94,22 @@ def heads_or_tails():                                             #standard coin
             flip = random.choice(coin)
             if x == flip:
                 print("you win, the coin landed on",flip)
+                points += 5
             else:
                 print("you lose, the coin landed on",flip)
+                points -= 5 
+            break
 
 def rock_paper_scissors():                                                     #standard game of rock, paper, scissor
+    global points 
     options = ["rock", "paper", "scissors"]
     while True:
-        x = input("Pick rock, paper or scissors:").lower()
-        if x not in options:
+        x = input("Pick rock, paper or scissors or exit :").lower()
+        if x == "exit":
+            print("exiting game")
+            break
+
+        if not re.match("^(rock|paper|scissors)$", x):
             print("please select valid option")
         else:
             opponent = random.choice(options)
@@ -109,10 +117,14 @@ def rock_paper_scissors():                                                     #
                 print("tie, opponent also picked", opponent)
             elif (x == "rock" and opponent == "scissors") or (x== "paper" and opponent == "rock") or (x == "scissors" and opponent == "paper"):
                 print("you win opponent picked" , opponent)
+                points += 10
             else:
                 print("you lose opponent picked", opponent)
+                points -= 10
+            break
 
 def blackjack():
+    global points
     cards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",  #standard deck of cards 
              "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",
              "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",
@@ -152,6 +164,7 @@ def blackjack():
 
     print("your hand:", player, "value:", hand_value(player))           #shows the cards you have and the value of hand
     print("Dealers hand:", dealer , "value:", hand_value(dealer))
+    
 
     while True:
         if hand_value(player) == 21:
@@ -163,7 +176,15 @@ def blackjack():
             print("Dealers hand:", dealer , "value:", hand_value(dealer))
             break
 
-        coice = input("do you want to hit or stand?").lower()
+        choice = input("do you want to hit or stand or exit ?").lower()
+       
+        if choice =="exit":
+            print("exiting game")
+            break
+
+        if not re.match("^(hit|stand)$", choice):
+            print("please select hit or stand only")
+
         if choice == "hit":
             player.append(random.choice(cards))
             cards.remove(player[-1])
@@ -180,8 +201,10 @@ def blackjack():
             if hand_value(dealer) > 21:
                 print("Dealer busts!")
             elif hand_value(player) > hand_value(dealer):
+                points += 20
                 print("you win")
             elif hand_value(player) < hand_value(dealer):
+                points -=20
                 print("you lose")
             else:
                 print("tie")
