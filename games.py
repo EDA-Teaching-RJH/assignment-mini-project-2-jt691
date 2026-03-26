@@ -31,10 +31,10 @@ def hand_value(hand):
     return total 
 
 def test_hand_value():                     #testing - verify that the hand values is working correctly by asserting values of different hands 
-    assert hand_value(["10, J"]) == 20
-    assert hand_value(["A, 9"]) == 20
-    assert hand_value(["A, A, 9"]) == 21
-    assert hand_value(["A, A, 9, 2"]) == 12
+    assert hand_value(["10", "J"]) == 20
+    assert hand_value(["A", "9"]) == 20
+    assert hand_value(["A", "A", "9"]) == 21
+    assert hand_value(["A", "A", "9", "2"]) == 13
     print("Blackjack hand value tests passed")  
 
 
@@ -130,25 +130,6 @@ def blackjack():
              "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",
              "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K","A"]
     
-    def hand_value(hand):
-        total = 0                                                  # created two variables, total is overlall value of hand whilst ace will be used later to change the value to 1 or 11
-        aces = 0
-        
-        for card in hand:                                          #assings J,Q,K as 10 and A as 11 but if the total goes over 21 the value of the ace will change to 1 
-            if card in ["J", "Q", "K"]:
-                total += 10
-            elif card == "A":
-                aces += 1
-                total += 11
-            else:
-                total += int(card)
-
-    while total > 21 and aces > 0:                  # whilst a ace is in hand the value of total will change from 11 to 1 to prevent the player going over 21 
-        total -= 10
-        aces -= 1    
-    return total 
-    
-    
     player = []
     dealer = []
 
@@ -201,10 +182,10 @@ def blackjack():
             if hand_value(dealer) > 21:
                 print("Dealer busts!")
             elif hand_value(player) > hand_value(dealer):
-                points += 20
+                points += 15
                 print("you win")
             elif hand_value(player) < hand_value(dealer):
-                points -=20
+                points -= 15
                 print("you lose")
             else:
                 print("tie")
