@@ -1,5 +1,8 @@
 import sys                                                  #allows python to read the arguments #python3 games.py jack (line to input into the terminal)
 import random                                               #allows for rock paper scissors and coin flip to be random and blackjack
+import re                                                   #inported re for regex to check inputs are valid for later use 
+
+points = 0 
 
 def minigames():                                                 #list of games and options to pick from 
     print("Select a game you wish to play:")                   
@@ -8,6 +11,33 @@ def minigames():                                                 #list of games 
     print("3. Blackjack")
     print("4. Score")
     print("5. Exit")
+
+def hand_value(hand):
+    total = 0                                                  # created two variables, total is overlall value of hand whilst ace will be used later to change the value to 1 or 11
+    aces = 0
+        
+    for card in hand:                                          #assings J,Q,K as 10 and A as 11 but if the total goes over 21 the value of the ace will change to 1 
+        if card in ["J", "Q", "K"]:
+            total += 10
+        elif card == "A":
+            aces += 1
+            total += 11
+        else:
+            total += int(card)
+    
+    while total > 21 and aces > 0:                  # whilst a ace is in hand the value of total will change from 11 to 1 to prevent the player going over 21 
+        total -= 10
+        aces -= 1    
+    return total 
+
+def test_hand_value():                     #testing - verify that the hand values is working correctly by asserting values of different hands 
+    assert hand_value(["10, J"]) == 20
+    assert hand_value(["A, 9"]) == 20
+    assert hand_value(["A, A, 9"]) == 21
+    assert hand_value(["A, A, 9, 2"]) == 12
+    print("Blackjack hand value tests passed")                  
+    
+        
                         
 def main():                              # Moved argument to main function to make more readable and added sys. exit() to end unless a name is given
     if len(sys.argv) < 2:                                                 # directs user input to the variable seleted calling the function to run
@@ -121,7 +151,7 @@ def blackjack():
         elif choice == "stand":
             print("Dealers hand:", dealer , "value:", hand_value(dealer))
             
-            while hand_value(dealer) < 17:
+            while hand_value(dealer) < 17:                                           #dealer will always hit until they have 17 or higher only then will they stand 
                 dealer.append(random.choice(cards))
                 cards.remove(dealer[-1])
                 print("Dealers hand:", dealer , "value:", hand_value(dealer))
@@ -135,7 +165,6 @@ def blackjack():
             else:
                 print("tie")
                 break
-
 
 if __name__ == "__main__":
     main()              
