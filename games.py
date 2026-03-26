@@ -66,6 +66,7 @@ def blackjack():
              "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",
              "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",
              "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K","A"]
+    
     def hand_value(hand):
         total = 0                                                  # created two variables, total is overlall value of hand whilst ace will be used later to change the value to 1 or 11
         aces = 0
@@ -98,6 +99,42 @@ def blackjack():
     dealer.append(random.choice(cards))
     cards.remove(dealer[-1])
 
+    print("your hand:", player, "value:", hand_value(player))           #shows the cards you have and the value of hand
+    print("Dealers hand:", dealer , "value:", hand_value(dealer))
+
+    while True:
+        if hand_value(player) == 21:
+            print("BLACKJACK! PERFECT 21!")
+            break
+
+        if hand_value(player) > 21:
+            print("Bust! you went over 21")
+            print("Dealers hand:", dealer , "value:", hand_value(dealer))
+            break
+
+        coice = input("do you want to hit or stand?").lower()
+        if choice == "hit":
+            player.append(random.choice(cards))
+            cards.remove(player[-1])
+            print("your hand:", player, "value:", hand_value(player))
+        
+        elif choice == "stand":
+            print("Dealers hand:", dealer , "value:", hand_value(dealer))
+            
+            while hand_value(dealer) < 17:
+                dealer.append(random.choice(cards))
+                cards.remove(dealer[-1])
+                print("Dealers hand:", dealer , "value:", hand_value(dealer))
+            
+            if hand_value(dealer) > 21:
+                print("Dealer busts!")
+            elif hand_value(player) > hand_value(dealer):
+                print("you win")
+            elif hand_value(player) < hand_value(dealer):
+                print("you lose")
+            else:
+                print("tie")
+                break
 
 
 if __name__ == "__main__":
